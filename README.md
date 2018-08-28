@@ -45,6 +45,7 @@ As a shopper you will see a dashboard containing all the stores currently availa
 
 ## Running tests
 To run the test, browse the project directory and run the command `truffle test`, you should see all tests executing successfully.
+All tests are located in the `tests` folder.
 
 ## Troubleshooting
 If you are getting weird errors visiting the site, try running `truffle migrate --reset` first. 
