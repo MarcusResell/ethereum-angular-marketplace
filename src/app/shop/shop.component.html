@@ -1,0 +1,27 @@
+<div class="jumbotron p-3 p-md-5 rounded">
+  <div *ngIf="store" class="col-md-6 px-0">
+    <h1 class="font-italic">Welcome to {{store.name}}!</h1>
+  </div>
+</div>
+
+<div class="container">
+  <div class="card-columns">
+    <div class="card" *ngFor="let product of products">
+      <img class="card-img-top" src="https://loremflickr.com/320/240/cat?random={{product[0]}}" alt="Card image top">
+      <div class="card-body">
+        <div class="alert alert-primary" role="alert" *ngIf="showApproveInformation == product[0]">
+          <strong>Confirm transaction!</strong> Open MetaMask to confirm the transaction.
+        </div>
+        <div class="alert alert-success" role="alert" *ngIf="showSuccessInformation == product[0]">
+          <strong>Purchase successful!</strong> Thank you for your purchase!
+        </div>
+        <h3 class="card-title">{{product[1]}}</h3>
+        <p class="card-text">{{product[2]}}</p>
+        <p class="text-small">Cost: {{product[3]}}
+        </p>
+        <p class="text-small">Quantity: {{product[6]}}</p>
+        <button [disabled]="product[6] == 0" (click)="buyItem(product[0], product[3])" class="btn btn-primary">Buy</button>
+      </div>
+    </div>
+  </div>
+</div>

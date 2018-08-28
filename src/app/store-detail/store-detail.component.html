@@ -1,0 +1,100 @@
+<div class="jumbotron p-3 p-md-5 rounded">
+  <div *ngIf="store" class="col-md-6 px-0">
+    <h1 class="display-4 font-italic">{{store.name}}</h1>
+    <p class="my-3"><i class="fab fa-ethereum"></i>
+      Current balance: {{store.balance}} <button type="button" class="mx-3 btn btn-sm btn-secondary" [disabled]="store.balance == 0"
+        (click)="withdrawBalance()">Withdraw</button></p>
+    <p class="my-3">Number of products: {{productCount}}</p>
+    <button type="button" class="btn btn-sm btn-link" (click)="deleteStore()">Delete store</button>
+  </div>
+</div>
+
+<div class="row mb-2">
+  <div class="col-md-12">
+    <div class="card flex-md-row mb-4 shadow-sm h-md-250">
+      <div class="card-body d-flex flex-column align-items-start">
+        <strong class="d-inline-block mb-2 text-primary">Add product</strong>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">Product name</span>
+          </div>
+          <input type="text" [(ngModel)]="newProduct.name" name="productName" #productName="ngModel" class="form-control">
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">Product description</span>
+          </div>
+          <input type="text" [(ngModel)]="newProduct.description" name="productDesc" #productDesc="ngModel" class="form-control">
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Price</span>
+            <span class="input-group-text"><i class="fab fa-ethereum"></i></span>
+          </div>
+          <input type="number" min="1" [(ngModel)]="newProduct.price" (ngModelChange)="updatePrice(productPrice.value)" name="productPrice"
+            #productPrice="ngModel" placeholder="Price" class="form-control" aria-label="Amount">
+          <div class="input-group-append">
+            <span class="input-group-text">Wei</span>
+            <span class="input-group-text">({{priceInEther(productPrice.value)}}) ether</span>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">Quantity</span>
+          </div>
+          <input type="number" min="1" [(ngModel)]="newProduct.quantity" name="productQuantity" #productQuantity="ngModel" class="form-control">
+        </div>
+
+
+        <div *ngIf="!productName.pristine && productName.length == 0" class="alert alert-danger">
+          Product name cannot be empty
+        </div>
+        <div *ngIf="newProductWaitingForApproval" class="alert alert-primary alert-dismissible fade show" role="alert">
+          <strong>Confirm transaction!</strong> Open MetaMask to confirm the transaction.
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div *ngIf="newProductSuccess" class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong>Success!</strong> Product successfully added.
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <button type="button" class="btn btn-sm btn-primary" (click)="addProduct()">Add product</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="products">
+  <form [formGroup]="updateForm" class="row" *ngIf="products">
+    <div formArrayName="items" class="col-sm-4" *ngFor="let item of items.controls; let i = index;">
+      <div [formGroupName]="i">
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{products[i][1]}}</h5>
+            <p class="card-text">{{products[i][2]}}
+            </p>
+            <p class="card-text">Price: <i class="fab fa-ethereum"></i> {{priceInEther(products[i][3])}}</p>
+            <div class="form-group">
+              <label>Price</label>
+              <input type="text" class="form-control" formControlName="price" placeholder="Price">
+            </div>
+
+            <div class="form-group">
+              <label>Quantity</label>
+              <input type="text" class="form-control" formControlName="quantity" placeholder="Quantity">
+            </div>
+            <button type="submit" class="btn btn-primary" (click)="updateProduct(i)">Update</button>
+
+            <button class="btn btn-danger mx-3" (click)="deleteProduct(i)">Remove</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div>

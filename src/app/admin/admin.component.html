@@ -1,0 +1,49 @@
+<div *ngIf="!admin" class="text-center">
+  <div class="fa-2x">
+    <i class="fab fa-ethereum fa-spin"></i>
+  </div>
+</div>
+
+<div *ngIf="admin">
+  <div class="jumbotron">
+    <h1>Grant merchant permissions</h1>
+    <p>Add the address of the merchant and press the button. Sign the transaction with Metamask</p>
+    <form>
+      <div class="input-group mb-3 form-group">
+        <input type="text" id="address" [(ngModel)]="newAddress.address" (ngModelChange)="checkInput(address.value)" #address="ngModel"
+          name="address" class="form-control" placeholder="Merchant address (eg. 0x8888f1f195afa192cfee860698584c030f4c9db1)"
+          aria-label="Merchant address" aria-describedby="button-addon2">
+        <div class="input-group-append">
+          <button class="btn btn-primary" [disabled]="!newAddress.valid" type="button" id="button-addon2" (click)="addMerchant()">Grant
+            permission
+          </button>
+        </div>
+      </div>
+      <div [hidden]="address.pristine || newAddress.valid" class="alert alert-danger">
+        Given string is not a valid address. Correct example address: 0x8888f1f195afa192cfee860698584c030f4c9db1
+      </div>
+      <div [hidden]="!waitingForApproval" class="alert alert-primary alert-dismissible fade show" role="alert">
+        <strong>Confirm transaction!</strong> Open MetaMask to confirm the transaction.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div [hidden]="!success" class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Success!</strong> Merchant successfully added.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <ul class="list-group">
+    <li class="list-group-item active">
+      <h3>Manage merchants</h3>
+    </li>
+    <li *ngFor="let merchant of merchants" class="list-group-item d-flex justify-content-between align-items-center">{{merchant}}<button
+        class="btn btn-sm btn-warning" type="button" id="button-addon2" (click)="removeMerchant(merchant)">Revoke permission
+      </button></li>
+  </ul>
+
+</div>

@@ -1,0 +1,23 @@
+<nav class="navbar navbar navbar-dark bg-primary mb-5">
+  <a class="navbar-brand" routerLink="/">dMarket</a>
+  <div class="navbar-expand mr-auto">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" routerLink="/">Home</a>
+      <a *ngIf="role == 'Storekeeper'" class="nav-item nav-link" routerLink="/merchant">My stores</a>
+      <a *ngIf="role == 'Admin'" class="nav-item nav-link" routerLink="/admin">Administrator area</a>
+    </div>
+  </div>
+  <div class="navbar-expand ml-auto navbar-nav">
+    <div class="navbar-nav">
+      <span class="navbar-text mr-3">
+        <i class="fas fa-hashtag"></i>{{account}}
+      </span>
+      <span class="navbar-text mr-3">
+        <i class="fas fa-user-alt"></i> {{role}}
+      </span>
+      <span class="navbar-text mr-3">
+        <i class="fab fa-ethereum"></i> {{balance}}
+      </span>
+    </div>
+  </div>
+</nav>
