@@ -12,7 +12,7 @@ Contract for managing stores in the Marketplace contract.
 */
 
 /** @title MarketplaceStores. */
-contract MarketplaceStores is Ownable{
+contract MarketplaceStores is Ownable {
 
     /* Variable to hold a reference to the instance of the Marketplace contract */
     Marketplace public marketplace;
