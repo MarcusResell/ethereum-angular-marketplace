@@ -12,20 +12,20 @@ import { AppState } from '../state/app.state';
   providedIn: 'root'
 })
 export class ContractService {
-  SupplyChain = contract(marketplaceArtifacts);
+  Marketplace = contract(marketplaceArtifacts);
   constructor(private web3Ser: Web3Service) {
-    this.SupplyChain.setProvider(web3Ser.web3.currentProvider);
+    this.Marketplace.setProvider(web3Ser.web3.currentProvider);
   }
 
   isAdministrator(address: string): Observable<any> {
-    let supplyChain;
+    let marketplace;
 
     return Observable.create(observer => {
-      this.SupplyChain.deployed()
+      this.Marketplace.deployed()
         .then(instance => {
-          supplyChain = instance;
+          marketplace = instance;
           // we use call here so the call doesn't try and write, making it free
-          return supplyChain.isAdministrator(address);
+          return marketplace.isAdministrator(address);
         })
         .then(value => {
           observer.next(value);
@@ -42,7 +42,7 @@ export class ContractService {
     let marketplace;
 
     return Observable.create(observer => {
-      this.SupplyChain.deployed()
+      this.Marketplace.deployed()
         .then(instance => {
           marketplace = instance;
           const checkSumAddress = this.web3Ser.web3.toChecksumAddress(address);
@@ -63,14 +63,14 @@ export class ContractService {
   }
 
   isStorekeeper(address: string): Observable<any> {
-    let supplyChain;
+    let marketplace;
 
     return Observable.create(observer => {
-      this.SupplyChain.deployed()
+      this.Marketplace.deployed()
         .then(instance => {
-          supplyChain = instance;
+          marketplace = instance;
           // we use call here so the call doesn't try and write, making it free
-          return supplyChain.isStoreOwner(address);
+          return marketplace.isStoreOwner(address);
         })
         .then(value => {
           observer.next(value);
@@ -90,7 +90,7 @@ export class ContractService {
   getMerchantCount(): Observable<number> {
     let marketplace;
     return Observable.create(observer => {
-      this.SupplyChain.deployed()
+      this.Marketplace.deployed()
         .then(instance => {
           marketplace = instance;
           // we use call here so the call doesn't try and write, making it free
@@ -109,7 +109,7 @@ export class ContractService {
   getMerchants(count: number): Observable<any> {
     let marketplace;
     return Observable.create(observer => {
-      this.SupplyChain.deployed()
+      this.Marketplace.deployed()
         .then(instance => {
           marketplace = instance;
           const promises = [];
@@ -118,7 +118,7 @@ export class ContractService {
           }
 
           return Promise.all(promises);
-          // supplyChain.items(0).then(res => {
+          // marketplace.items(0).then(res => {
           //   console.log(res);
           // });
         })
@@ -135,7 +135,7 @@ export class ContractService {
   removeMerchant(address: string): Observable<any> {
     let marketplace;
     return Observable.create(observer => {
-      this.SupplyChain.deployed()
+      this.Marketplace.deployed()
         .then(instance => {
           marketplace = instance;
           const checkSumAddress = this.web3Ser.web3.toChecksumAddress(address);
@@ -154,20 +154,20 @@ export class ContractService {
     });
   }
 
-  // listen() {
-  //   let supplyChain;
-  //   this.SupplyChain.deployed().then(instance => {
-  //     supplyChain = instance;
-  //     let events = supplyChain.ForSale();
-  //     events.watch(function(error, event) {
-  //       console.log('HAJHAJ');
-  //       if (error) {
-  //         console.log(error);
-  //       } else {
-  //         let eventRet = event;
-  //         console.log(eventRet);
-  //       }
-  //     });
-  //   });
-  // }
+  listen() {
+    let marketplace;
+    this.Marketplace.deployed().then(instance => {
+      marketplace = instance;
+      let event = marketplace.AdminCreated();
+      event.watch(function(error, value) {
+        console.log('HAJHAJ');
+        if (error) {
+          console.log(error);
+        } else {
+          let eventRet = value;
+          console.log(eventRet);
+        }
+      });
+    });
+  }
 }

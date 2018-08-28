@@ -40,7 +40,7 @@ export class StoreDetailComponent implements OnInit {
 
   setupForm(products: Array<any>) {
     const groups: Array<FormGroup> = products.map(product =>
-      this.createItem(product[3], product[7])
+      this.createItem(product[3], product[6])
     );
     this.updateForm = this.formBuilder.group({
       items: this.formBuilder.array(groups)

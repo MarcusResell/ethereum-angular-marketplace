@@ -17,14 +17,14 @@ export class StoreService {
   }
 
   createStore(name: string): Observable<any> {
-    let supplyChain;
+    let stores;
 
     return Observable.create(observer => {
       this.MarketplaceStores.deployed()
         .then(instance => {
-          supplyChain = instance;
+          stores = instance;
           // we use call here so the call doesn't try and write, making it free
-          return supplyChain.createStore(name, { from: this.fromAddr() });
+          return stores.createStore(name, { from: this.fromAddr() });
         })
         .then(value => {
           observer.next(value);
@@ -38,15 +38,15 @@ export class StoreService {
   }
 
   getStoreIdsByMerchant(): Observable<any> {
-    let supplyChain;
+    let stores;
 
     return Observable.create(observer => {
       this.MarketplaceStores.deployed()
         .then(instance => {
-          supplyChain = instance;
+          stores = instance;
           console.log(this.fromAddr());
           // we use call here so the call doesn't try and write, making it free
-          return supplyChain.getStoreIdsByMerchant(this.fromAddr());
+          return stores.getStoreIdsByMerchant(this.fromAddr());
         })
         .then(value => {
           observer.next(value.map(item => item.toString()));
@@ -93,7 +93,7 @@ export class StoreService {
           }
 
           return Promise.all(promises);
-          // supplyChain.items(0).then(res => {
+          // stores.items(0).then(res => {
           //   console.log(res);
           // });
         })
@@ -185,7 +185,7 @@ export class StoreService {
           }
 
           return Promise.all(promises);
-          // supplyChain.items(0).then(res => {
+          // stores.items(0).then(res => {
           //   console.log(res);
           // });
         })
