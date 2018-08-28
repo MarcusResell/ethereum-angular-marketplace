@@ -29,6 +29,7 @@ If everything is set up right you can now browse the site at `http://localhost:4
 The site has as previously mentioned three types of roles, administrator, merchant and shopper.
 When you first visit the site you will automatically identified as an administrator.
 If you see a blank page while browsing the site, try hitting the refresh button, it's most likely due to Angular not detecting UI changes when the data comes from the blockchain.
+Also, not all events are listened for in the UI, so if you make a change like adding a product, store or updating prices, try refreshing the browser if the changes are not shown.
 
 ## Administrator
 As an administrator you will have access to the admin page. On this page you can add an address into an input field to make that address a merchant on the marketplace. The button will only enabled if the input is a valid Ethereum address.
