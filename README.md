@@ -1,27 +1,35 @@
-# EthDapp
+# dMarket
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
+dMarket is my (first) take on building a marketplace application in Solidity. It is powered by a local development Ethereum blockchain through Ganache and developed with the help of Truffle. The frontend is an Angular 6 project.
+The project contains three roles: Administrator, Merchant and Shopper. All three roles automatically get redirected to their main view once entering the page. Administrators manage merchants, merchants manage their stores and inventory, shoppers... Manage shopping. 
 
-## Development server
+# How to run the project
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Project requirements
 
-## Code scaffolding
+The following is required to run the project
+- Truffle (`npm install -g truffle`)
+- Ganache CLI (`npm install -g ganache-cli`) or the Ganache UI application
+- MetaMask
+- Installning Angular CLI may be needed depending on your environment
+	- npm install -g @angular/cli
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Setting it up
+Clone the repository and browse the directory with a terminal. Inside the `ethDapp` folder type `npm install`.
+After installing has complete, start your local blockchain by running `ganache-cli` or by using the application.
+If you have not done it before, copy the mnemonic phrase that you get as output, open up MetaMask and click on restore from seed phrase. Paste the seed phrase and enter a password.
+Once you are logged in, in the network settings of MetaMask choose `localhost:8545`.
 
-## Build
+Open up a new terminal window and browse the project directory. Go to the contracts directory and run `truffle migrate`.
+Finally run `npm run dev` to start off the local web server, it will run on port `4200`.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+If everything is set up right you can now browse the site at `http://localhost:4200/`.
 
-## Running unit tests
+## Using the web application
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+## Running tests
+To run the test, browse the project directory and run the command `truffle test`, you should see all tests executing successfully.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Troubleshooting
+If you are getting weird errors visiting the site, try running `truffle migrate --reset` first. 
