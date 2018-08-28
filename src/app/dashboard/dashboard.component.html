@@ -1,10 +1,12 @@
-<div *ngIf="stores.length > 0">
+<div>
   <div class="jumbotron">
     <h1 class="display-4">Hello, shopper!</h1>
-    <p class="lead">Browse our full collection of stores below.</p>
+    <p class="lead" *ngIf="stores.length > 0">Browse our full collection of stores below.
+    </p>
+    <p class="lead" *ngIf="stores.length == 0">Unfortunately there are no stores available at the moment.</p>
   </div>
 
-  <div class="card-columns">
+  <div class="card-columns" *ngIf="stores.length > 0">
     <div class="card p-3" *ngFor="let store of stores">
       <img class="card-img-top" src="https://loremflickr.com/320/240/storefront?random={{store.id}}" alt="Store">
       <div class="card-body">
