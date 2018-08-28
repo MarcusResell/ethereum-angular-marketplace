@@ -7,6 +7,15 @@ The project contains three roles: Administrator, Merchant and Shopper. All three
 
 ## Project requirements
 
+### Important about versions
+
+If you are running this on a fresh install of Ubuntu 16.0.4 you will need to run these commands before continuing:
+
+- `sudo apt install curl`
+- `curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -`
+- `sudo apt-get install -y nodejs`
+  This is to make sure you have installed and updated versions of node and npm
+
 The following is required to run the project
 
 - Truffle (`npm install -g truffle`)
