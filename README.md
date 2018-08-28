@@ -25,7 +25,22 @@ Finally run `npm run dev` to start off the local web server, it will run on port
 
 If everything is set up right you can now browse the site at `http://localhost:4200/`.
 
-## Using the web application
+# Using the web application
+The site has as previously mentioned three types of roles, administrator, merchant and shopper.
+When you first visit the site you will automatically identified as an administrator.
+If you see a blank page while browsing the site, try hitting the refresh button, it's most likely due to Angular not detecting UI changes when the data comes from the blockchain.
+
+## Administrator
+As an administrator you will have access to the admin page. On this page you can add an address into an input field to make that address a merchant on the marketplace. The button will only enabled if the input is a valid Ethereum address.
+Try adding one of the other account addresses from MetaMask, dont forget to sign the transaction or nothing will happen.
+It is also possible to revoke merchant status from currently active merchants by clicking the remove button in the list below.
+
+## Merchant
+Merchant will, just as administrators, automatically be redirected to the merchant page. From here you have an overview of all your stores. You can also create new stores, just dont forget to sign the transaction in MetaMask!
+By clicking on the button to manage a store, you will be taken to a more detailed view of that particular store. From here you can add products, manage products (change price and stock), and remove products. You can also remove the store from this view, or withdraw any balance the store has collected from your sales.
+
+## Shopper
+As a shopper you will see a dashboard containing all the stores currently available in the marketplace. You can then browse any store you see, and eventually buy any product that caught your eye. Just dont forget to sign the transaction!
 
 
 ## Running tests
